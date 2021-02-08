@@ -3,7 +3,7 @@ import Card from '../Components/Card';
 import FeedsList from '../Components/FeedsList';
 import Layout from "../Components/Layout";
 import ProfileAvatarHalf from '../Components/ProfileAvatarHalf';
-import YourSessions from '../Components/YourSessions';
+import YourProjects from '../Components/YourProjects';
 import { API_URL, GET_SERVER_TOKEN_HEADER } from "../config/constants";
 import { AuthContext } from "../providers/AuthProvider";
 
@@ -17,7 +17,8 @@ function dashboard(props) {
 
     if(props.error)
         return (<div>api error</div>)
- 
+            
+        console.log(props);
     return (
         <Layout {...props} signOut={authStatus.signOut} currentUser={authStatus.currentUser} containerClass="bg-bg-main" >
             <div className="max-w-4xl mx-auto mt-6">
@@ -36,7 +37,7 @@ function dashboard(props) {
                         <div>
                             <h2 className=" text-black text-xl font-bold mb-3">Your Projects</h2>
                             <p className="font-regular text-gray-700">Let's do some open source!</p>
-                            <YourSessions v3 />
+                            <YourProjects v3 projects={props.userProjects} />
                         </div>
                         <div className="mt-12">
                             <h2 className=" text-black text-xl font-bold mb-3 ">Community</h2>
@@ -69,7 +70,7 @@ export async function getServerSideProps(ctx){
     }
 
     userData = await userData.json();
-    console.log(userData);
+
 
     if(!userData.userDetails)
         return {
@@ -79,6 +80,12 @@ export async function getServerSideProps(ctx){
             }
         }
 
+    let userProjects = await fetch(API_URL+`/v3/session`, {
+        headers: await GET_SERVER_TOKEN_HEADER(ctx)
+    });
+
+    userProjects = await userProjects.json();
+
     return {
         props: {
             user: userData.userDetails,
@@ -86,6 +93,7 @@ export async function getServerSideProps(ctx){
             invite: userData.invite,
             auth: true,
             apierror: false,
+            userProjects
         }
     } 
 

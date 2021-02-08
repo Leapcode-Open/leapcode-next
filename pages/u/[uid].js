@@ -63,7 +63,7 @@ function UID(props) {
                                     </div>
                                     <div className="flex-1 ml-8">
                                         <div>
-                                            <h2 className="font-bold text-black text-xl font-bold mb-3">Projects working on</h2>
+                                            <h2 className="text-black text-xl font-bold mb-3">Projects working on</h2>
                                             {/* <V3ProjectCards projects={projects} onlyProjects /> */}
                                         </div>
                                     </div>
