@@ -1,10 +1,13 @@
 import { auth } from "./firebase";
 import cookies from 'next-cookies';
+import jscookie from 'js-cookie';
 export const COOKIE_TOKEN = 'lptoken';
 export const API_URL = process.env.NEXT_PUBLIC_APIURL;
 
 export const getToken = async () => {
-    const token = auth().currentUser ? await auth().currentUser.getIdToken() : 'notokeb';
+    //const token = auth().currentUser ? await auth().currentUser.getIdToken() : 'notokeb';
+    const co = await jscookie.get('lptoken');
+    const token = co ? co : 'notokeb'
     return token;
 }
 

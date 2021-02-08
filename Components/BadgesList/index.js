@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { storage, auth } from '../../config/firebase';
+import { storage } from '../../config/firebase';
 import SkeletonLoading from '../SkeletonLoading';
 export default class BadgesList extends Component {
 

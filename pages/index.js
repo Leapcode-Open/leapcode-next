@@ -4,14 +4,13 @@ import FeedsList from '../Components/FeedsList';
 import Layout from "../Components/Layout";
 import ProfileAvatarHalf from '../Components/ProfileAvatarHalf';
 import YourSessions from '../Components/YourSessions';
-import { API_HEADERS, API_URL, GET_SERVER_TOKEN_HEADER } from "../config/constants";
+import { API_URL, GET_SERVER_TOKEN_HEADER } from "../config/constants";
 import { AuthContext } from "../providers/AuthProvider";
 
 function dashboard(props) {
     const authStatus = useContext(AuthContext);
     if(!props.auth)
         return (<div>
-            
             not auth 
             <button onClick={() => authStatus.login()}>Login</button>
         </div>)
@@ -35,12 +34,12 @@ function dashboard(props) {
 
                     <div className="flex-1 ml-8">
                         <div>
-                            <h2 className="font-bold text-black text-xl font-bold mb-3">Your Projects</h2>
+                            <h2 className=" text-black text-xl font-bold mb-3">Your Projects</h2>
                             <p className="font-regular text-gray-700">Let's do some open source!</p>
-                            <YourSessions />
+                            <YourSessions v3 />
                         </div>
                         <div className="mt-12">
-                            <h2 className="font-bold text-black text-xl font-bold mb-3 ">Community</h2>
+                            <h2 className=" text-black text-xl font-bold mb-3 ">Community</h2>
                             <p className="font-regular text-gray-700 mb-4">Some buzz happening inside leapcode</p>
                             <FeedsList />
                         </div>
@@ -55,8 +54,6 @@ function dashboard(props) {
 }
 
 export async function getServerSideProps(ctx){
-
-
 
     let userData = await fetch(API_URL+`/auth/user`, {
         headers: await GET_SERVER_TOKEN_HEADER(ctx)
