@@ -56,17 +56,6 @@ export default class FeedsList extends Component {
         }
 
 
-        // fetch(API_URL+url, {
-        //     headers: await GET_TOKEN_HEADER()
-        // })
-        // .then(res => res.json())
-        // .then((res) => {
-        //     this.setState({
-        //         feeds: res,
-        //         loading: false
-        //     });
-            
-        // });
     }
     render() {
         const { loading, feeds, error } = this.state;
