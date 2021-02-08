@@ -42,7 +42,7 @@ function dashboard(props) {
                         <div className="mt-12">
                             <h2 className=" text-black text-xl font-bold mb-3 ">Community</h2>
                             <p className="font-regular text-gray-700 mb-4">Some buzz happening inside leapcode</p>
-                            <FeedsList />
+                            {/* <FeedsList /> */}
                         </div>
                     </div>
                 </div>
