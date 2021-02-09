@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import LandingPageLayout from '../Components/LandingPageLayout'
 import { getAllPosts } from '../config/contributorsLib'
 import { AuthContext } from '../providers/AuthProvider'
@@ -48,6 +48,16 @@ const tweets = [
 
     const authStatus = useContext(AuthContext);
     console.log(featuredUsers);
+
+
+    useEffect(() => {
+      const s = document.createElement("script");
+      s.setAttribute("src", "https://platform.twitter.com/widgets.js");
+      s.setAttribute("async", "true");
+      document.head.appendChild(s);
+    }, []);
+
+
 
     const runSurvey = () => {
 
@@ -259,9 +269,8 @@ export const getStaticProps = async (ctx) => {
     });
     featuredUsers = await featuredUsers.json();
     featuredUsers = await shuffleArray(featuredUsers)
-    featuredUsers = featuredUsers.splice(0,20);
-    projects = await projects.json();
-    console.log(projects);
+    featuredUsers.length > 0 ? featuredUsers = featuredUsers.splice(0,20) : null;
+    projects = await projects.json()
     //projects = projects.splice(0,3);
 
     return {
