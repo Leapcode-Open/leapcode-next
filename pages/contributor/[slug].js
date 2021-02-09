@@ -1,8 +1,6 @@
-import remark from 'remark'
-import html from 'remark-html'
 import LandingPageLayout from '../../Components/LandingPageLayout';
 import { getPostBySlug, getAllPosts } from '../../config/contributorsLib';
-
+import Link from 'next/link';
 
 
 const Slug = (props) => {
@@ -10,10 +8,12 @@ const Slug = (props) => {
      return(
         <LandingPageLayout>
              <div className="w-screen h-screen bg-blue-100 flex flex-col items-center justify-center">
-                    <a href="/">
-                        <img style={{ width:'140px' }} className="mx-auto" src={'/logo.svg'} />
-                    </a>
-                    <div className="md:w-1/4 mx-1 mt-10 md:mx-0 mx-auto  text-left p-10 bg-white">
+                    <Link href="/">
+                        <a>
+                            <img style={{ width:'140px' }} className="mx-auto" src={'/logo.svg'} />
+                        </a>
+                    </Link>
+                    <div className="md:w-1/4 mt-10 md:mx-0 mx-auto  text-left p-10 bg-white">
                         <div className="blog-post font-gt">
                             <div className="mb-4">
                                 <small class="font-medium text-gray-600">I'm</small>
@@ -31,8 +31,9 @@ const Slug = (props) => {
                             </div>
                         </div>
                     </div>
-
-                    <a className="text-left font-bold font-gt mt-4 block text-sm hover:underline" href="/contributor">Back to contributors</a>
+                    <Link href="/contributor">
+                        <a className="text-left font-bold font-gt mt-4 block text-sm hover:underline">Back to contributors</a>
+                    </Link>
                 </div>
         </LandingPageLayout>
     )

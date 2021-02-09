@@ -1,6 +1,6 @@
 import LandingPageLayout from "../../Components/LandingPageLayout";
 import { getAllPosts } from "../../config/contributorsLib";
-
+import Link from 'next/link';
 const index = ({ contributors }) => {
     return (
         <LandingPageLayout>
@@ -15,11 +15,14 @@ const index = ({ contributors }) => {
                     <h1 className="text-2xl font-gt">Contributor on Leapcode</h1>
                     <div className="mt-12 grid grid-cols-3 gap-4">
                          { contributors.map(contrib => (
-                             <a key={contrib.data.username} href={`/contributor/${contrib.slug}`} className="p-3 border border-gray-300 rounded-lg mb-4 block bg-white shadow-sm hover:shadow-lg duration-100">
+                             <Link key={contrib.data.username} href={`/contributor/${contrib.slug}`}>
+                                <a className="p-3 border border-gray-300 rounded-lg mb-4 block bg-white shadow-sm hover:shadow-lg duration-100">
                                     <h3 className="font-gt text-base mb-1">{contrib.data.name}</h3>
                                     <small className="font-gt text-gray-600 text-xs mb-1 block">{contrib.data.username}</small>
                                     <p className="font-gt text-sm mb-0">{contrib.data.bio}</p>
-                             </a>
+                                </a>
+                             </Link>
+                             
                          ))}
                     </div>  
                 </div>

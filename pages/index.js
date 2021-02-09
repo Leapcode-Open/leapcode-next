@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import LandingPageLayout from '../Components/LandingPageLayout'
 import { getAllPosts } from '../config/contributorsLib'
 import { AuthContext } from '../providers/AuthProvider'
-
+import Link from 'next/link';
 const tweets = [
     {
       id:0,
@@ -132,15 +132,18 @@ const tweets = [
                 <div className="grid gap-4 grid-cols-3 text-left mt-10">
                     {
                       contributors.filter(c => c.data.username != 'sethusathyan').map(contrib => (
-                        <a key={contrib.slug} href={`/contributor/${contrib.slug}`} className="border cursor-pointer border-gray-300 p-3 shadow-sm hover:shadow-lg transition transition-duration-100 rounded">
-                          <h6 className="font-gt text-base mb-2">{contrib.data.name}</h6>
-                          <p  className="font-gt text-sm mb-0">{contrib.data.bio}</p>
-                        </a>
+                        <Link key={contrib.slug} href={`/contributor/${contrib.slug}`}>
+                          <a  className="border cursor-pointer border-gray-300 p-3 shadow-sm hover:shadow-lg transition transition-duration-100 rounded">
+                            <h6 className="font-gt text-base mb-2">{contrib.data.name}</h6>
+                            <p  className="font-gt text-sm mb-0">{contrib.data.bio}</p>
+                          </a>
+                        </Link>
                       ))
                     }
                 </div>
-
-                <a className="text-blue-600 font-bold font-gt mt-10 block hover:underline" href="/contributor">See all contributors →</a>
+                <Link href="/contributor">
+                  <a className="text-blue-600 font-bold font-gt mt-10 block hover:underline" >See all contributors →</a>
+                </Link>
 
               </div>
             
