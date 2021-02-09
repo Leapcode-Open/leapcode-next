@@ -42,9 +42,9 @@ function UID(props) {
                 <ProfileHeader profile={profile} />
             </div>
 
-            <div className="max-w-4xl mx-auto mt-8">
+            <div className="max-w-6xl mx-auto mt-8">
                                 <div className="flex md:gap-10">
-                                    <div className="w-2/5">
+                                    <div className="w-2/6">
                                         <Card className="p-6">
                                             <div className={`flex items-center pb-4 border-gray-300 border-b`}>
                                                     <div className="">

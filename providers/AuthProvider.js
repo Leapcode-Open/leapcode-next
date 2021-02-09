@@ -81,13 +81,13 @@ export const AuthProvider = ({ children }) => {
 
 
 
-  if( pending ){
-    return (<div className="w-screen h-screen flex items-center justify-center">
-      <div className="w-1/4 bg-white rounded-lg px-6 py-10 flex items-center flex-col">
-        loading
-      </div>
-    </div>)
-  }
+  // if( pending ){
+  //   return (<div className="w-screen h-screen flex items-center justify-center">
+  //     <div className="w-1/4 bg-white rounded-lg px-6 py-10 flex items-center flex-col">
+  //       loading
+  //     </div>
+  //   </div>)
+  // }
 
 
   return (

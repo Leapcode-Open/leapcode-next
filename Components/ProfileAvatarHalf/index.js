@@ -24,7 +24,11 @@ class ProfileAvatarHalf extends Component {
                 <div className={`flex items-center ${className} pb-8 border-gray-300 border-b`}>
                         <div className="w-12 h-12 mr-3"><img className="rounded-full" src={currentUser.photoURL} /></div>
                         <div className="">
-                            <h3 className="text-lg"><Link className="hover:underline" href={`/u/${user.username}`}>{currentUser.displayName ? currentUser.displayName : <span className="text-gray-700 text-sm">{`@${user.username}`}</span>}</Link></h3>
+                            <h3 className="text-lg"><Link href={`/u/${user.username}`}>
+                                <a className="hover:underline">
+                                    {currentUser.displayName ? currentUser.displayName : <span className="text-gray-700 text-sm">{`@${user.username}`}</span>}
+                                </a>
+                            </Link></h3>
                             <ScorePointer loading={loading} points={user.points} />
                         </div>
                 </div>
@@ -47,7 +51,7 @@ class ProfileAvatarHalf extends Component {
                             invite.usersList.map((u) => (
                                 <div key={u._id} className="mb-2 flex">
                                     <div className="w-4 h-4"><img src={u.displayPhoto} className="rounded-full" /></div>
-                                    <Link href={`/u/${u.username}`} className="text-xs ml-3 text-gray-700 hover:underline">{u.displayName ? u.displayName : u.username}</Link>
+                                    <Link href={`/u/${u.username}`} ><a className="text-xs ml-3 text-gray-700 hover:underline">{u.displayName ? u.displayName : u.username}</a></Link>
                                 </div>
                             ))
                         }

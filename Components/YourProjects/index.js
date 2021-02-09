@@ -40,25 +40,10 @@ const V3Design = (props) => {
         )) }
 
 
-    { props.projects.length == 0 ? 
-                <Link href={`/project/${`first-pull-request-pr`}/activity/`}>
-                    <a>
-                        <Card className='mb-4 hover:shadow'>
-                            <div className="py-6 px-6">
-                                <div className="flex">
-                                    <div className="">
-                                        <h3 className="text-base font-bold mb-1">Learn to do your first Pull Request</h3>
-                                        <h4 className="text-sm mb-1">This project will teach you the basics of GitHub workflow and help you make your first open source contribution.</h4>
-                                        <button className="font-inter hover:underline font-bold text-purple-600 mt-3 text-sm">Start this project</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </Card>
-                    </a>
-                </Link> : null }
+ 
               
       <Card className="mt-8 hover:shadow hover:bg-gray-100 cursor-pointer">
-          <Link href="/projects"  className="py-8 flex flex-col items-center justify-center">
+          <Link href="/projects" >
               <a className="py-8 flex flex-col items-center justify-center">
                 <h2 className="font-bold text-lg mb-2">Explore {props.projects.length == 0 ? '' : 'More '}Projects</h2>
                 <p className="text-gray-700 text-sm">Earn points 🔥 by contributing to open source projects</p>

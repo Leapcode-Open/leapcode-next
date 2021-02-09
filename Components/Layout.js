@@ -8,7 +8,7 @@ const CurrentUserDetails = ({currentUser, userDetails, signOut}) => (
         <div className="dropdown-lc inline-block relative hover:bg-gray-100 rounded">
           <button className=" text-gray-700 font-semibold py-1 px-2 rounded inline-flex items-center">
             <div className="mr-2 flex items-center">
-              <img src={currentUser.photoURL} className="w-10 rounded-full border border-gray-300 mr-2" />
+              <img src={currentUser.displayPhoto} className="w-10 rounded-full border border-gray-300 mr-2" />
               <span className="text-sm text-left">
                 <div>{currentUser.displayName ? currentUser.displayName : currentUser.username }</div>
                 {userDetails ? <div>🔥 {userDetails.points}</div> : <div className="opacity-25 text-gray-500">🔥 Loading</div> }
@@ -29,20 +29,22 @@ const CurrentUserDetails = ({currentUser, userDetails, signOut}) => (
 function Layout(props) {
     const {currentUser, signOut, children, user} = props;
     const userDetails = user;
+    console.log(user);
   return (
   <Fragment>
     <div className=" w-screen bg-white border-b border-gray-200">
-        <div className="mx-auto max-w-4xl py-2 flex justify-between items-center">
+        <div className="mx-auto max-w-6xl py-2 flex justify-between items-center">
             <div>
               <Link href='/'>
-                {/* <img src={require('../../assets/leapcode-new-logo.svg')} className="w-32"  /> */}
-                asdsa
+                <a >
+                  <img src={'/logo.svg'} className="w-32"  />
+                </a>
               </Link>
             </div>
 
             <div className="flex items-center">
               {
-                currentUser ? <CurrentUserDetails currentUser={currentUser} userDetails={userDetails} signOut={signOut} /> : <span>Login</span>
+                user ? <CurrentUserDetails currentUser={user} userDetails={userDetails} signOut={signOut} /> : <span>Login</span>
               }
                 
                 {/* <div>

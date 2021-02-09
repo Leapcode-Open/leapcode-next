@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+@import 'Landing.css';
+
+
 .hover--display-parent:hover .hover--display {
   display: block;
 }
