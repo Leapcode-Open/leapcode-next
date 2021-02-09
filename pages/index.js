@@ -3,6 +3,9 @@ import LandingPageLayout from '../Components/LandingPageLayout'
 import { getAllPosts } from '../config/contributorsLib'
 import { AuthContext } from '../providers/AuthProvider'
 import Link from 'next/link';
+import { API_URL, GET_SERVER_TOKEN_HEADER } from '../config/constants';
+import { RepoBlock } from '../Components/RepoBlock';
+import Card from '../Components/Card';
 const tweets = [
     {
       id:0,
@@ -41,10 +44,10 @@ const tweets = [
   
 
   
-  const LandingPage = ({ contributors }) => {
+  const LandingPage = ({ contributors, projects, featuredUsers }) => {
 
     const authStatus = useContext(AuthContext);
-
+    console.log(featuredUsers);
 
     const runSurvey = () => {
 
@@ -141,6 +144,19 @@ const tweets = [
                       ))
                     }
                 </div>
+
+
+                <div className="mt-8">
+                  <div className="flex flex-wrap justify-center">
+                    { featuredUsers.map(u => (
+                      <Link href={`u/${u.username}`}>
+                        <a className="block w-12 h-12 mx-2 rounded mt-2">
+                          <img className="w-12 h-12 rounded-full" alt={u.username} src={u.displayPhoto} />
+                        </a>
+                      </Link>
+                    )) }
+                  </div>
+                </div>
                 <Link href="/contributor">
                   <a className="text-blue-600 font-bold font-gt mt-10 block hover:underline" >See all contributors →</a>
                 </Link>
@@ -159,10 +175,9 @@ const tweets = [
             </div>
           </div>
 
-
           <section className="md:mt-32 mt-16" >
-            <div className="max-w-screen-lg mx-auto">
-              <div className="md:w-2/3 px-6 md:px-0">
+            <div className="max-w-screen-lg mx-auto flex flex-col md:flex-row ">
+              <div className="md:w-3/6 px-6 md:px-0">
                 <small className="font-gt font-bold block mb-4 text-lg opacity-75">For Open Source Project Owners</small>
                 <h2 className="text-4xl font-gt text-newblue-900 leading-snug">Create a seamless experience for your contributors</h2>
                 <p className="text-newblue-900 tracking-wide font-gt">For open source project maintainers & owners, Leapcode helps you onboard first time contributors by simplyfying your contribution process & making it interesting.</p>
@@ -185,6 +200,21 @@ const tweets = [
 
                 <a href="https://airtable.com/shrGWFt2xQsfAHMu4" target="_blank" className=" mt-12 block text-center md:inline-block bg-gray-300 hover:bg-gray-400 text-newblue-900 font-semibold font-gt px-6 py-3 rounded">Add your Repository</a>
 
+              </div>
+
+              <div className="flex-1 ml-12 mt-10 md:mt-0">
+                <div className="grid grid-cols-1 gap-4 ">
+                  { projects.map(pro => (
+                    <div className="random-layout">
+                      <RepoBlock {...pro} />
+                    </div>
+                  ) ) }
+                  <div className="">
+                    <Link href="/projects">
+                      <a className="text-blue-600 font-bold font-gt mt-4 block hover:underline text-center" >See all projects →</a>
+                    </Link>
+                  </div>
+                </div>
               </div>
               
               
@@ -220,9 +250,25 @@ export const getStaticProps = async (ctx) => {
     let allContributorPosts = await getAllPosts();
     allContributorPosts = await shuffleArray(allContributorPosts);
     allContributorPosts = allContributorPosts.splice(0,3);
+    let projects = await fetch(API_URL+`/project/random?v3=true&limit=3`, {
+        headers: await GET_SERVER_TOKEN_HEADER(ctx)
+    });
+
+    let featuredUsers = await fetch(API_URL+'/auth/randomUsers?limit=40', {
+      headers: await GET_SERVER_TOKEN_HEADER(ctx)
+    });
+    featuredUsers = await featuredUsers.json();
+    featuredUsers = await shuffleArray(featuredUsers)
+    featuredUsers = featuredUsers.splice(0,20);
+    projects = await projects.json();
+    console.log(projects);
+    //projects = projects.splice(0,3);
+
     return {
         props:{
-            contributors:allContributorPosts
+            contributors:allContributorPosts,
+            projects: projects,
+            featuredUsers
         }
     }
 }

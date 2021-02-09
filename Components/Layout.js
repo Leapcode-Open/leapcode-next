@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { Fragment } from 'react';
+import { Fragment, useContext } from 'react';
+import { AuthContext } from '../providers/AuthProvider';
 
 
 
@@ -29,7 +30,7 @@ const CurrentUserDetails = ({currentUser, userDetails, signOut}) => (
 function Layout(props) {
     const {currentUser, signOut, children, user} = props;
     const userDetails = user;
-    console.log(user);
+    const authStatus = useContext(AuthContext);
   return (
   <Fragment>
     <div className=" w-screen bg-white border-b border-gray-200">
@@ -44,7 +45,7 @@ function Layout(props) {
 
             <div className="flex items-center">
               {
-                user ? <CurrentUserDetails currentUser={user} userDetails={userDetails} signOut={signOut} /> : <span>Login</span>
+                user ? <CurrentUserDetails currentUser={user} userDetails={userDetails} signOut={authStatus.signOut} /> : <span>Login</span>
               }
                 
                 {/* <div>

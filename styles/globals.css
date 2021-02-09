@@ -132,3 +132,12 @@ code {
   0%   { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+
+.random-layout {
+
+}
+
+.random-layout:nth-of-type(2n) {
+  transform: translateX(60px);
+}

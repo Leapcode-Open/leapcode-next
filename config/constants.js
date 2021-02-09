@@ -3,6 +3,7 @@ import cookies from 'next-cookies';
 import jscookie from 'js-cookie';
 export const COOKIE_TOKEN = 'lptoken';
 export const API_URL = process.env.NEXT_PUBLIC_APIURL;
+export const SERVER_API_KEY = process.env.SERVER_API_KEY ? process.env.SERVER_API_KEY  : 'notoken';
 
 export const getToken = async () => {
     //const token = auth().currentUser ? await auth().currentUser.getIdToken() : 'notokeb';
@@ -25,16 +26,15 @@ export const GET_TOKEN_HEADER = async () => ({
 })
 
 
-
 export const GET_SERVER_TOKEN_HEADER = async (ctx) => {
     const { lptoken } = cookies(ctx);
     return({
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'authorization': `Bearer ${lptoken}`
+        'authorization': `Bearer ${lptoken}`,
+        'server-access-key': `${SERVER_API_KEY}` 
     })
 }
-
 
 
 export const GET_AUTH_USER_DETAILS = async (ctx) => {

@@ -2,7 +2,7 @@ import { useContext } from "react";
 import Layout from "../Components/Layout";
 import { RepoBlock } from "../Components/RepoBlock";
 import SkeletonLoading from "../Components/SkeletonLoading";
-import { API_URL, GET_AUTH_USER_DETAILS } from "../config/constants";
+import { API_URL, GET_AUTH_USER_DETAILS, GET_SERVER_TOKEN_HEADER } from "../config/constants";
 import { AuthContext } from "../providers/AuthProvider";
 
 function projects(props) {
@@ -16,7 +16,7 @@ function projects(props) {
                 <div className="mx-auto max-w-4xl pt-10">
                     <h3 className="font-bold text-lg">All Projects</h3>
                    
-                    <div className='mt-6 pb-24'>
+                    <div className='mt-6 pb-24 grid grid-cols-2 gap-4'>
 
                         {
                             projects.filter(a => !a.hide).map(pro => <RepoBlock {...pro} />)
@@ -30,7 +30,9 @@ function projects(props) {
 
 export async function getServerSideProps(ctx){
 
-    let projects = await fetch(API_URL+`/project?v3=true`);
+    let projects = await fetch(API_URL+`/project?v3=true`, {
+        headers: await GET_SERVER_TOKEN_HEADER(ctx)
+    });
     if(!projects) {
         return {
             props: {
