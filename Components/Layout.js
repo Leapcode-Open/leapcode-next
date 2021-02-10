@@ -34,7 +34,7 @@ function Layout(props) {
   return (
   <Fragment>
     <div className=" w-screen bg-white border-b border-gray-200">
-        <div className="mx-auto max-w-6xl py-2 flex justify-between items-center">
+        <div className="mx-auto max-w-6xl px-8 md:px-0 py-2 flex justify-between items-center">
             <div>
               <Link href='/'>
                 <a >
@@ -63,7 +63,7 @@ function Layout(props) {
 
 
     <div className="footer bg-white py-6 relative bottom-0 w-full">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-6xl mx-auto">
       <small className="text-gray-500">Made with ❤️ by leapcode team</small>
 
       </div>

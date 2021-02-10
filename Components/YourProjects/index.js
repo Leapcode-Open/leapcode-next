@@ -25,26 +25,28 @@ const V3Design = (props) => {
     return (
     <div className="mt-8">
         {  props.projects.map((project) => (
-            <Link key={project._id} href={`/v3/project/${project.slug}/activity`}>
-            <Card className='mb-4 hover:shadow'>
-                <div className="py-6 px-6">
-                    <div className="flex">
-                        <div className="">
-                            <h3 className="text-base font-bold mb-1">{project.name}</h3>
-                            <h4 className="text-xs mb-1">{project.organisation} / {project.name}</h4>
+            <Link key={project._id} href={`/project/${project.slug}/issue`}>
+                <a>
+                    <Card className='mb-4 shadow-sm hover:shadow'>
+                        <div className="py-4 px-4">
+                            <div className="flex">
+                                <div className="">
+                                    <h3 className="text-base font-bold mb-1">{project.name}</h3>
+                                    <h4 className="text-xs mb-1">{project.organisation} / {project.name}</h4>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </Card>
+                    </Card>
+                </a>
             </Link>
         )) }
 
 
  
               
-      <Card className="mt-8 hover:shadow hover:bg-gray-100 cursor-pointer">
+      <Card className="mt-8 shadow-sm hover:shadow border cursor-pointer">
           <Link href="/projects" >
-              <a className="py-8 flex flex-col items-center justify-center">
+              <a className="py-4 flex flex-col items-center justify-center">
                 <h2 className="font-bold text-lg mb-2">Explore {props.projects.length == 0 ? '' : 'More '}Projects</h2>
                 <p className="text-gray-700 text-sm">Earn points 🔥 by contributing to open source projects</p>
               </a>

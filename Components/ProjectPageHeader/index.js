@@ -30,7 +30,8 @@ const ProjectPageHeader = ({ project, selectedPage }) => {
         return null
     }
 
-    console.log(project);
+    console.log(selectedPage);
+
     return (
         <div className="bg-white border-b border-gray-200 shadow-sm">
             <Card noBorder className="px-6 pt-6">

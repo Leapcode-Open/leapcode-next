@@ -34,7 +34,7 @@ export default class BadgesList extends Component {
         return (
             <div className="">
                 { badges.map(badge => (
-                    <div key={badge._id} className="flex py-3 items-center">
+                    <div key={badge._id} className="flex py-1 items-center">
                         <div className="w-8 h-8">
                             <img src={badge.downloadurl} />
                         </div>

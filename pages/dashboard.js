@@ -39,10 +39,10 @@ function dashboard(props) {
     
     return (
         <Layout {...props} signOut={authStatus.signOut} currentUser={authStatus.currentUser} containerClass="bg-bg-main" >
-            <div className="max-w-6xl mx-auto mt-6">
+            <div className="max-w-6xl mx-auto mt-6 px-8 md:px-0">
 
-                <div className="flex md:gap-10 mt-10">
-                    <div className="w-2/6">
+                <div className="flex flex-col md:flex-row md:gap-10 mt-10">
+                    <div className="md:w-2/6">
                             <Card>
                                 <>
                                     <ProfileAvatarHalf invite={props.invite} loading={props.loading} user={props.user} badges={props.badges} currentUser={props.user} className=" px-6 py-6 border-b-2 border-gray-200" fullName="Sethu Sathyan" points='20' />
@@ -51,7 +51,7 @@ function dashboard(props) {
                         </div>
                    
 
-                    <div className="flex-1 ml-8">
+                    <div className="flex-1 md:ml-8 mt-4 md:mt-0">
                         <div>
                             <h2 className=" text-black text-xl font-bold mb-3">Your Projects</h2>
                             <p className="font-regular text-gray-700">Let's do some open source!</p>

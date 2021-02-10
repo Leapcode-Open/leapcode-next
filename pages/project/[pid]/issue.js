@@ -5,6 +5,7 @@ import { AuthContext } from "../../../providers/AuthProvider";
 import Link from 'next/link';
 import Card from "../../../Components/Card";
 import ProjectPageHeader from "../../../Components/ProjectPageHeader";
+import { getProjectDetailsUsingSlug } from "../../../config/apiCalls";
 
 
 
@@ -23,21 +24,16 @@ function issue(props) {
     return (
         <Layout containerClass={'bg-bg-main'} {...props} currentUser={authStatus.currentUser}>
             <div className="mx-auto">
-                <ProjectPageHeader project={props.project} />
+                <ProjectPageHeader project={props.project} selected={'ISSUE'} />
             </div>
         </Layout>
     );
 }
 
 export async function getServerSideProps(ctx){
-    console.log(ctx.params);
     const { pid } = ctx.params;
-
-    let project = await fetch(API_URL+`/project/slug/${pid}`, {
-        headers: await GET_SERVER_TOKEN_HEADER(ctx)
-    });
-
-    if(project.status == '404') {
+    let project = await getProjectDetailsUsingSlug(pid, ctx);
+    if(!project) {
         ctx.res.statusCode = 404;
         return {
             props: {
@@ -46,11 +42,7 @@ export async function getServerSideProps(ctx){
             }
         }
     }
-
-    project = await project.json()
     const user = await GET_AUTH_USER_DETAILS(ctx);
-    
-
     return {
         props:{
             project,

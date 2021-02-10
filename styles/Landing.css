@@ -4,7 +4,7 @@
 }
 
 .font-gt { 
-    font-family: 'An', sans-serif;
+    font-family: 'Plus Jakarta', sans-serif;
 }
 
 
@@ -255,3 +255,55 @@ section .check__item p {
     opacity: .9;
     margin-top: 0
 }
+
+/* @font-face {
+    font-family: "AFont";
+    font-weight: 700;
+    src: url("/fonts/GT-America-Bold.otf");
+}
+
+
+@font-face {
+    font-family: "AFont";
+    font-weight: 500;
+    src: url("/fonts/GT-America-Medium.otf");
+}
+
+
+@font-face {
+    font-family: "AFont";
+    font-weight: 300;
+    src: url("/fonts/GT-America-Regular.otf");
+}
+
+
+@font-face {
+    font-family: 'An';
+    font-weight: 300;
+    src: url('/fonts/Aeonik-Regular.ttf')
+}
+
+@font-face {
+    font-family: 'An';
+    font-weight: 600;
+    src: url('/fonts/Aeonik-Bold.ttf')
+} */
+
+@font-face {
+    font-family: "Plus Jakarta";
+    src: url("/fonts/jakata/PlusJakartaText-Bold.ttf");
+    font-weight: 700;
+  } 
+
+  @font-face {
+    font-family: "Plus Jakarta";  
+    src: url("/fonts/jakata/PlusJakartaText-Regular.ttf");
+    font-weight: 300;
+  } 
+
+
+  @font-face {
+    font-family: "Plus Jakarta";
+    src: url("/fonts/jakata/PlusJakartaText-Light.ttf");
+    font-weight: 200;
+  } 

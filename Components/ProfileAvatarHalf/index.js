@@ -21,7 +21,7 @@ class ProfileAvatarHalf extends Component {
    
         return (
             <div>
-                <div className={`flex items-center ${className} pb-8 border-gray-300 border-b`}>
+                <div className={`flex items-center ${className} pb-4 md:pb-8 border-gray-300 border-b`}>
                         <div className="w-12 h-12 mr-3"><img className="rounded-full" src={currentUser.photoURL} /></div>
                         <div className="">
                             <h3 className="text-lg"><Link href={`/u/${user.username}`}>
@@ -33,7 +33,7 @@ class ProfileAvatarHalf extends Component {
                         </div>
                 </div>
 
-                <div className="py-6 px-6 border-gray-300 border-b">
+                <div className=" hidden md:block py-4 md:py-6 px-4 border-gray-300 border-b">
                         <h3 className="text-xs uppercase text-gray-700 font-bold mb-3">Badges</h3>
                         <BadgesList badges={badges} />
                         {
@@ -42,11 +42,11 @@ class ProfileAvatarHalf extends Component {
                     </div>
 
                 { invite ? 
-                 <div className="py-6 px-6 border-gray-300 border-b">     
+                 <div className="py-6 px-4 border-gray-300 border-b">     
                     <h3 className="text-xs uppercase text-gray-700 font-bold mb-3">Invite & Earn🔥</h3>
                     <p className="text-xs text-gray-700">Invite a friend to leapcode and earn 100 points when your friend joins. Here is your invite code:</p>
                     <div className="p-3 bg-gray-200 mt-4 text-xs text-gray-700 rounded">{invite ? invite.code : ""}</div>
-                    <div className="mt-4">
+                    <div className="mt-4 hidden md:block">
                         {
                             invite.usersList.map((u) => (
                                 <div key={u._id} className="mb-2 flex">
