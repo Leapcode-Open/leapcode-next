@@ -20,12 +20,10 @@ const PRStatus = ({ state }) => {
 const V3Design = (props) => {
 
     const [modelIsOpen, setModelIsOpen] = useState(false);
-
- 
     return (
     <div className="mt-8">
         {  props.projects.map((project) => (
-            <Link key={project._id} href={`/project/${project.slug}/issue`}>
+            <Link key={project._id} href={`/project/${project.slug}/activity/`}>
                 <a>
                     <Card className='mb-4 shadow-sm hover:shadow'>
                         <div className="py-4 px-4">

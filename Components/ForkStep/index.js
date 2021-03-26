@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { API_URL, API_HEADERS, GET_TOKEN_HEADER } from '../../constants';
+import { API_URL, API_HEADERS, GET_TOKEN_HEADER } from '../../config/constants';
 import Cookies from 'js-cookie'
 import { GoRepoForked } from 'react-icons/go';
 
 var url = require('url');
 
-export const ForkStep = (props) => {
+const ForkStep = (props) => {
     const [forkExist, setForkExist] = useState(true);
     const [loading, setLoading] = useState(true);
     const [forking, setForking] = useState(false);
@@ -104,3 +104,6 @@ export const ForkStep = (props) => {
         </div>
     )
 }
+
+
+export default ForkStep;

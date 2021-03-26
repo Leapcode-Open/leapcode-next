@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { auth, provider } from '../config/firebase';
 //import SkeletonLoading from "../Components/SkeletonLoading";
 import cookie from 'js-cookie';
-import { API_HEADERS, API_URL, COOKIE_TOKEN, getToken } from "../config/constants";
+import { API_HEADERS, API_URL, COOKIE_TOKEN } from "../config/constants";
 
 export const AuthContext = React.createContext();
 
@@ -23,7 +23,6 @@ export const AuthProvider = ({ children }) => {
       window.location.href="/"
     })
   }
-
 
   const login = async () => {
     const authUser = await auth().signInWithPopup(provider);

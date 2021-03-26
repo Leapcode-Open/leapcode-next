@@ -77,8 +77,11 @@ const tweets = [
                 <div className="flex flex-col mt-8 align-center justify-center">
                   <div className="block mt-2">
                     {!authStatus.currentUser ? 
-                    <a href="https://app.leapcode.io/login?ghlogin=true" rel="nofollow" className=" hover:bg-black bg-gray-900 text-white font-gt inline-block font-semibold px-6 py-3 text-sm md:text-sm rounded-lg ">
-                      <div className="flex"><img className="w-5 h-5 mb-0 mr-3" src={'/lo.png'} /><span>Sign in with Github</span></div>
+                    <a onClick={() => authStatus.login()} 
+                        rel="nofollow" 
+                        className=" hover:bg-black bg-gray-900 text-white font-gt inline-block font-semibold px-6 py-3 text-sm md:text-sm rounded-lg ">
+                      <div className="flex">
+                        <img className="w-5 h-5 mb-0 mr-3" src={'/lo.png'} /><span>Sign in with Github</span></div>
                     </a> : 
                     
                     <a href="/dashboard" rel="nofollow" className=" hover:bg-black bg-gray-900 text-white font-gt inline-block font-semibold px-6 py-3 text-sm md:text-sm rounded-lg ">

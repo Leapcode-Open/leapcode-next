@@ -6,7 +6,7 @@ import { GoGitPullRequest, GoMarkGithub } from "react-icons/go";
 import PullRequestList from '../PullRequestList';
 import Tick from '../Tick';
 import Model from '../Model';
-import Confetti from 'react-confetti';
+// import Confetti from 'react-confetti';
 import PrimaryButton from '../PrimaryButton';
 
 var url = require('url');
@@ -25,7 +25,7 @@ const CongratsProject = (props) => {
     else {
         return (
             <Model {...props}>
-                <Confetti active={props.isOpen} />
+                {/* <Confetti active={props.isOpen} /> */}
                 <div className="flex flex-col items-center text-center py-32 px-32" style={{ backgroundSize:'cover' }}>
                     <h2 className="text-3xl font-bold px-6 mb-5">Congrats on the merge!</h2>
                     <h2 className="text-3xl font-bold px-6 mb-5">🔥100 points has been added to your profile</h2>
@@ -190,4 +190,4 @@ const PRBlock = ({ session, project, firstTime }) => {
 }
 
 
-export default PRBlockV3;
+export default PRBlock;

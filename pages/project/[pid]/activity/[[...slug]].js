@@ -6,7 +6,7 @@ import { API_URL, GET_AUTH_USER_DETAILS, GET_SERVER_TOKEN_HEADER, GET_TOKEN_HEAD
 import { AuthContext } from "../../../../providers/AuthProvider";
 import { includes } from 'lodash';
 import Link from "next/link";
-import { useRouter } from 'next/router'
+import { Router, useRouter } from 'next/router'
 import Tick01 from "../../../../Components/Tick";
 import LessonContainer from "../../../../Components/LessonContainer";
 import { sortableContainer, sortableElement, sortableHandle } from "react-sortable-hoc";
@@ -117,19 +117,18 @@ const SideCourseBlock = ({name, lessons, projectSlug, slug, selectedLesson, curr
         </div>
 )}
 
-
-
-
-
-
 function Course(props) {
     // console.log(props);
+    const routerListener = useRouter()
     const { courses, project, lid, cid } = props;
     const authStatus = useContext(AuthContext);
     const router = useRouter();
 
     const [courseList, setCourseList] = useState(courses);
-
+    useEffect(() => {
+        // action on update of movies
+    }, [courseList]);
+    const [completedCourse, setCompletedCourse] = useState(null);
 
     if(props.notFound) {
         return (<div>not found</div>)
@@ -144,15 +143,62 @@ function Course(props) {
         return (<div>Error</div>)
     }
 
+    const nextPageURL = () => {
+        const currentLesson = props.lesson;
+        const currentCourse = props.lesson.course;
+        //Check if next lesson exist
+        if((currentLesson.order+1) == currentCourse.lessons.length) {
+            if(currentCourse.order >= props.project.courses.length) {
+                return '/404'
+            }
+            return `/project/${props.project.slug}/activity/${props.project.courses[currentCourse.order+1]}/${props.project.courses[currentCourse.order+1].lessons[0].slug}`
+        }
+        return `/project/${props.project.slug}/activity/${props.project.courses[currentCourse.order]}/${props.project.courses[currentCourse.order].lessons[currentLesson.order+1].slug}`
+    }
 
-    const onLessonUpdate = () => {
+    const navigateToNextCourse = () => {
+        routerListener.push(nextPageURL());
+    }
+
+
+    const onLessonUpdate = (lesson) => {
         console.log('onLessonUpdate');
+        console.log(props);
+        const currentLessonList = lesson.course.lessons;
+        const currentCourse = lesson.course;
+        let tempCoursesList = JSON.parse(JSON.stringify(courseList));
+        console.log(tempCoursesList, currentCourse.order, lesson.order, props.user.uid)
+        if(props.user.uid) {
+            tempCoursesList[currentCourse.order].lessons[lesson.order].completedUsers.push(props.user.uid);
+            setCourseList(prevC => ([...prevC, ...tempCoursesList]))
+        }
+
+        routerListener.push(nextPageURL());
     }
 
 
-    const onCourseComplete = () => {
+    const onCourseComplete = async () => {
         console.log('onCourseComplete')
+        fetch(API_URL+`/course/done/${props.lesson.course._id}`, {
+            method: 'POST',
+            headers: await GET_TOKEN_HEADER()
+        }).then(res => res.json())
+        .then(res => {
+            if(res.error) {
+                return null;
+            }
+
+            if(res.type == 'ADDED_ALREADY') {
+                navigateToNextCourse()
+            }
+
+            else {
+                setCompletedCourse(props.lesson.course);
+            }
+        })
     }
+
+
 
 
 
@@ -172,24 +218,8 @@ function Course(props) {
               }
             }
 
-
-            //Do API
-
-            // fetch(API_URL+`/course/editSort`, {
-            //     method: 'POST',
-            //     headers: await GET_TOKEN_HEADER(),
-            //     body: JSON.stringify({
-            //         projectId:project._id,
-            //         oldIndex,
-            //         newIndex
-            //     })
-            // });
-            // console.log(editStatus);
             updateCourseSortOrder(project._id, oldIndex, newIndex);
-            console.log(newItems)
             return newItems.sort((a, b) => a.order - b.order);
-
-
 
           });
     }
@@ -202,6 +232,10 @@ function Course(props) {
             router.push(`/project/${project.slug}/activity/${cid}/${lid}`,  undefined, { shallow: true })
         }
       }, [])
+
+
+
+    console.log('lol', props)
 
 
     return (
@@ -234,27 +268,33 @@ function Course(props) {
                         </SortableContainer>
                     </div>
                 </div>
-
-
                 <div className="flex-1 pt-12">
                     <LessonContainer 
-                        lesson={props.lesson} 
+                        lesson={props.lesson}
+                 
                         project={project} 
                         courseId={cid} 
                         onLessonUpdate={onLessonUpdate} 
                         onCourseComplete={onCourseComplete} 
                     />
                 </div>
-
-
-
             </div>
         </Layout>
     );
 }
 
-export async function getServerSideProps(ctx){
+
+export async function getServerSideProps(ctx) {
     const { pid, slug } = ctx.params;
+    if(slug && slug.lenght < 2 && slug.lenght > 0) {
+        ctx.res.statusCode = 404;
+        return {
+            props: {
+                apierror: false,
+                noFound: true
+            }
+        } 
+    }
     const project = await getProjectDetailsUsingSlug(pid, ctx);
     if(!project) {
         ctx.res.statusCode = 404;
@@ -265,7 +305,87 @@ export async function getServerSideProps(ctx){
             }
         } 
     }
+    const user = await GET_AUTH_USER_DETAILS(ctx);
+    if(project.courses.lenght == 0) {
+        return {
+            props: {
+                project,
+                noCourse: true
+            }
+        }
+    }
+
+    let lesson = null;
+    console.log('234,', project.courses[0])
+    let cid = project.courses[0].slug;
+    let lid = project.courses[0].lessons[0].slug;
+    
+    if(slug && slug.length > 0) {
+        cid = slug[0]
+        lid = slug[1];
+    }
+
+    const lessonAPI = await fetch(API_URL+`/lesson/slug/${lid}`, {
+        headers: await GET_SERVER_TOKEN_HEADER(ctx)
+    });
+    if(lessonAPI.status == '200') {
+        lesson = await lessonAPI.json();
+    }
+    const courses = project.courses.sort((a,b) => a.order - b.order);
+    return {
+        props:{
+            data: null,
+            project,
+            lesson,
+         //   firstCourse,
+            courses,
+            lid,
+            cid,
+            user,
+            slugExist: slug ? true : false
+        }
+    }
+
+
+
+    
+
+
+}
+
+
+
+export async function getServerSideProps1(ctx){
+    const { pid, slug } = ctx.params;
+    const project = await getProjectDetailsUsingSlug(pid, ctx);
+    const user = await GET_AUTH_USER_DETAILS(ctx);
+    if(!project) {
+        ctx.res.statusCode = 404;
+        return {
+            props: {
+                apierror: false,
+                noFound: true
+            }
+        } 
+    }
     const firstCourse = project.courses[0];
+    if(!firstCourse) {
+        return {
+            props:{
+                data: null,
+                project,
+                lesson : {
+                    steps: []
+                },
+                firstCourse : {},
+                courses : [],
+                lid:null,
+                cid:null,
+                user,
+                slugExist: slug ? true : false
+            }
+        }
+    }
     let cid = firstCourse.slug ;
     let lid = firstCourse.lessons[0].slug;
     let lesson = null;
@@ -274,24 +394,25 @@ export async function getServerSideProps(ctx){
         lid = slug[1] 
     }
 
-    console.log('lid', lid)
+    //console.log('lid', lid)
 
 
     const lessonAPI = await fetch(API_URL+`/lesson/slug/${lid}`, {
         headers: await GET_SERVER_TOKEN_HEADER(ctx)
     });
+
+  
     if(lessonAPI.status == '200') {
         lesson = await lessonAPI.json();
     }
 
     const courses = project.courses.sort((a,b) => a.order - b.order);    
     //const firstLesson = firstCourse.lessons[0];
-    const user = await GET_AUTH_USER_DETAILS(ctx);
-
+  
 
     return {
         props:{
-            data:null,
+            data: null,
             project,
             lesson,
             firstCourse,

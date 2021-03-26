@@ -28,7 +28,7 @@ function projects(props) {
     );
 }
 
-export async function getServerSideProps(ctx){
+export async function getStaticProps(ctx){
 
     let projects = await fetch(API_URL+`/project?v3=true`, {
         headers: await GET_SERVER_TOKEN_HEADER(ctx)

@@ -36,7 +36,7 @@ function Layout(props) {
     <div className=" w-screen bg-white border-b border-gray-200">
         <div className="mx-auto max-w-6xl px-8 md:px-0 py-2 flex justify-between items-center">
             <div>
-              <Link href='/'>
+              <Link href='/dashboard'>
                 <a >
                   <img src={'/logo.svg'} className="w-32"  />
                 </a>
