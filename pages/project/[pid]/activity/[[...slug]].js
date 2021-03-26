@@ -236,7 +236,7 @@ function Course(props) {
 
 
 
-    console.log('lol', props)
+    //console.log('lol', props)
 
 
     return (

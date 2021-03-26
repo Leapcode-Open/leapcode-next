@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
   const login = async () => {
     const authUser = await auth().signInWithPopup(provider);
     const userToken = await auth().currentUser.getIdToken();
-    const loginInfo = await fetch(API_URL+`/auth/login`, {
+    let loginInfo = await fetch(API_URL+`/auth/login`, {
         method: 'POST',
         headers: API_HEADERS,
         body: JSON.stringify({
@@ -41,7 +41,13 @@ export const AuthProvider = ({ children }) => {
       return signOut();
     }
 
-    window.location.reload()
+
+    loginInfo = await loginInfo.json();
+
+    console.log(authUser);
+    cookie.set('LC_GHA', authUser.credential.accessToken)
+
+    window.location.href = '/dashboard'
   }
 
   useEffect(() => {
