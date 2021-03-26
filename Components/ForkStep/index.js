@@ -53,9 +53,9 @@ const ForkStep = (props) => {
         }).then(async res => {
             if(res.ok) {
                 const details = await res.json();
-                window.analytics.track('Forked Repo', {
-                    project: props.project.slug
-                });
+                // window.analytics.track('Forked Repo', {
+                //     project: props.project.slug
+                // });
                 setLoading(false);
                 setForking(false)
                 setForkDetails(details);

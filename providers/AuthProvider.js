@@ -25,7 +25,10 @@ export const AuthProvider = ({ children }) => {
   }
 
   const login = async () => {
-    const authUser = await auth().signInWithPopup(provider);
+    let ghprovider = provider;
+    ghprovider.addScope('public_repo read:user user:email')
+
+    const authUser = await auth().signInWithPopup(ghprovider);
     const userToken = await auth().currentUser.getIdToken();
     let loginInfo = await fetch(API_URL+`/auth/login`, {
         method: 'POST',
