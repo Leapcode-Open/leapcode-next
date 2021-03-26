@@ -20,10 +20,10 @@ const LessonContainer = (props) => {
         }).then(res => res.json())
         .then(res => {
             if(res.error) {
-
+                console.log(res.error);
             }
             
-            else if(!nextStepExist) {
+            if(!nextStepExist) {
                 props.onCourseComplete();
             }
 
@@ -106,31 +106,44 @@ const LessonContainer = (props) => {
     const ifNextLesson = (props.lesson.order+1) < props.lesson.course.lessons.length;
     console.log('exi', ifNextLesson)
     return (
-        <Card  className="p-6 font-inter lessonDiv">
-                <h1 className="text-lg font-bold mb-4">{lesson.name}</h1>
-                <div 
-                    dangerouslySetInnerHTML={{ __html: lesson.description }} 
-                    className='text-sm text-gray-800'>
+        <Card  className="font-inter lessonDiv">
+                <div className="px-6 pt-3 pb-3 border-b border-gray-100">
+                    <h1 className="text-lg font-bold">{lesson.name}</h1>
                 </div>
+                <div className="px-6 py-4 border-b border-gray-100">
+                    <div 
+                        dangerouslySetInnerHTML={{ __html: lesson.description }} 
+                        className='text-sm text-gray-800'>
+                    </div>
+                </div>
+               
 
                 <div className="text-sm text-gray-700 mb-2"></div>
-                <div className='mt-4'>
-                    {/* { steps goes here} */}
-                    { 
-                        lesson.steps.sort((a,b)=> a.order - b.order)
-                            .map(step => 
-                                <Step 
-                                    project={props.project} 
-                                    onDone={onStepDone} 
-                                    step={step} 
-                                    session={[]} />)
-                    } 
-                </div>
+       
+               
+                        { 
+                            lesson.steps.sort((a,b)=> a.order - b.order)
+                                .map(step => (
+                                    <div className="px-6 py-4">
+                                        <Step 
+                                            user={props.user}
+                                            project={props.project} 
+                                            onDone={onStepDone} 
+                                            step={step} 
+                                            session={[]} />
+                                        </div>
+                                )
+                                    
+                             )
+                        } 
+    
+           
+               
 
-                <div>
+                <div className="px-6 py-4">
                         { ifNextLesson ?   
-                        <div onClick={() => onNextLesson(nextStep) } className="py-2 px-6 rounded text-xs bg-blue-500 text-white font-semibold cursor-pointer hover:bg-blue-600">Next</div> : 
-                        <button onClick={() => onNextLesson()} className="py-2 px-6 rounded text-xs bg-blue-500 text-white font-semibold  cursor-pointer hover:bg-blue-600">Next</button>
+                        <button onClick={() => onNextLesson(nextStep) } className="py-2 px-6 rounded text-xs bg-blue-500 text-white font-semibold cursor-pointer hover:bg-blue-600">Next</button> : 
+                        <button onClick={() => onNextLesson()} className="py-2 px-6 rounded text-xs bg-blue-500 text-white font-semibold cursor-pointer hover:bg-blue-600">Next</button>
                         }
                 </div>
 

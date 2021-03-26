@@ -7,6 +7,7 @@ import YourProjects from '../Components/YourProjects';
 import { API_URL, GET_SERVER_TOKEN_HEADER } from "../config/constants";
 import { AuthContext } from "../providers/AuthProvider";
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const NewUserProjectBlock = (
 <Link href={`/project/${`first-pull-request-pr`}/activity/`}>
@@ -27,11 +28,12 @@ const NewUserProjectBlock = (
 
 function dashboard(props) {
     const authStatus = useContext(AuthContext);
-    if(!props.auth)
-        return (<div>
-            not auth 
-            <button onClick={() => authStatus.login()}>Login</button>
-        </div>)
+    //const routerListener = useRouter();
+    if(!props.auth) {
+       
+        return (<div className="flex w-screen h-screen items-center justify-center text-gray-600">You are not logged in to leapcode</div>)
+    }
+        
 
     if(props.error)
         return (<div>api error</div>)

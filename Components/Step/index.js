@@ -46,6 +46,13 @@ const Step = (props) => {
     if(loading)
         return (<SkeletonLoading />)
 
+    if(!props.user) 
+        return (
+            <div className="px-2 py-4 rounded bg-yellow-200 text-yellow-600">
+                You need to be logged in to do this step
+            </div>
+        )
+
     if(step.type == 'PR')
         return (
             <>

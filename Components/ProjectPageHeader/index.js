@@ -2,17 +2,18 @@ import Card from "../Card";
 import Link from 'next/link';
 import { GoMarkGithub } from "react-icons/go";
 
+// {
+//     id:1,
+//     title: ' Issues🔥',
+//     id:'ISSUE',
+//     url:'issue'
+// },
 
 const ProjectMenuItem  = [{
     id:0,
     title: 'Get Started✌️',
     id:'GETSTARTED',
     url:'activity'
-}, {
-    id:1,
-    title: ' Issues🔥',
-    id:'ISSUE',
-    url:'issue'
 }, {
     id:2,
     title: 'Your Contributions🚀',

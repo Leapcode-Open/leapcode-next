@@ -170,7 +170,7 @@ function Course(props) {
         console.log(tempCoursesList, currentCourse.order, lesson.order, props.user.uid)
         if(props.user.uid) {
             tempCoursesList[currentCourse.order].lessons[lesson.order].completedUsers.push(props.user.uid);
-            setCourseList(prevC => ([...prevC, ...tempCoursesList]))
+            setCourseList(prevC => ([...tempCoursesList]))
         }
 
         routerListener.push(nextPageURL());
@@ -185,7 +185,8 @@ function Course(props) {
         }).then(res => res.json())
         .then(res => {
             if(res.error) {
-                return null;
+                //return null;
+                navigateToNextCourse()
             }
 
             if(res.type == 'ADDED_ALREADY') {
@@ -271,7 +272,7 @@ function Course(props) {
                 <div className="flex-1 pt-12">
                     <LessonContainer 
                         lesson={props.lesson}
-                 
+                        user={props.user}
                         project={project} 
                         courseId={cid} 
                         onLessonUpdate={onLessonUpdate} 
