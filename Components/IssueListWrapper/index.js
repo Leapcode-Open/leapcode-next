@@ -56,10 +56,11 @@ const IssueListWrapper = ({ project, noRedirect, model, isOpen, onClose, modelHe
 
 
     const onClickPickIssue = (issue) => {
-        window.analytics.track('Picked up Issue', {
-            project: project.slug,
-            issue: issue.title
-        });
+        // window.analytics.track('Picked up Issue', {
+        //     project: project.slug,
+        //     issue: issue.title
+        // });
+        console.log(issue)
         setSelectedIssue(issue);
         setModelIsOpen(true);
     }
