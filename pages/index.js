@@ -139,8 +139,8 @@ const tweets = [
 
 
           <div className="mt-24 text-center">
-            <h2 className="font-gt md:text-5xl md:leading-normal font-bold text-newblue-900">Don’t take our word for it</h2>
-            <p className="font-gt text-newblue-900 tracking-wide">Our users are already talking about it on twitter</p>
+            <h2 className="font-gt md:text-5xl text-2xl md:leading-normal font-bold text-newblue-900">Don’t take our word for it</h2>
+            <p className="font-gt text-newblue-900 tracking-wide mt-4">Our users are already talking about it on twitter</p>
             <div className="mt-12 md:mt-24 px-4 md:px-0 max-w-screen-sm md:max-w-screen-lg mx-auto flex flex-row flex-wrap justify-center"> 
               { tweets.map(tweet => <div key={tweet.id} className="w-full md:w-1/2 px-4 mb-8">
                   <div className="" dangerouslySetInnerHTML={{ __html: tweet.html }} />
@@ -149,8 +149,8 @@ const tweets = [
 
  
               <div className="max-w-screen-lg mx-auto mt-4">
-                <h2 className="text-4xl font-bold my-12">Recent contributors who made their first pull request</h2>
-                <div className="grid gap-4 grid-cols-3 text-left mt-12">
+                <h2 className="md:text-4xl text-2xl font-bold my-12 px-4">Recent contributors who made their first pull request</h2>
+                <div className="grid gap-4 md:grid-cols-3 text-left mt-12 px-4">
                     {
                       contributors.filter(c => c.data.username != 'sethusathyan').map(contrib => (
                         <Link key={contrib.slug} href={`/contributor/${contrib.slug}`}>
