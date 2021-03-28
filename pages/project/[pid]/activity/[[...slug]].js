@@ -10,6 +10,8 @@ import { Router, useRouter } from 'next/router'
 import Tick01 from "../../../../Components/Tick";
 import LessonContainer from "../../../../Components/LessonContainer";
 import { sortableContainer, sortableElement, sortableHandle } from "react-sortable-hoc";
+import CongratsCourse from "../../../../Components/CongratsModal/CongratsCourse";
+import CongratsProject from "../../../../Components/CongratsModal/CongratsProject";
 
 const DragHandle = sortableHandle(() => <span>::</span>);
 
@@ -123,12 +125,19 @@ function Course(props) {
     const { courses, project, lid, cid } = props;
     const authStatus = useContext(AuthContext);
     const router = useRouter();
-
+    
     const [courseList, setCourseList] = useState(courses);
     useEffect(() => {
         // action on update of movies
     }, [courseList]);
+
+
+
     const [completedCourse, setCompletedCourse] = useState(null);
+    const [openComplete, setOpenComplete] = useState(false);
+    const [actComplete, setActComplete] = useState(false);
+
+    actComplete
 
     if(props.notFound) {
         return (<div>not found</div>)
@@ -157,7 +166,21 @@ function Course(props) {
     }
 
     const navigateToNextCourse = () => {
+        // checking if end of course and end of lesson
+        setOpenComplete(false)
+        setActComplete(false)
         routerListener.push(nextPageURL());
+    }
+
+
+    const checkIfProjectDone = () => {
+        console.log(props, props.lesson.course.order+1, props.courses.length, props.lesson.order+1, props.lesson.course.lessons.length )
+        if((props.lesson.course.order+1 == props.courses.length) && (props.lesson.order+1 == props.lesson.course.lessons.length)) {
+            console.log('ast')
+            return true
+        }
+
+        return false;
     }
 
 
@@ -178,7 +201,6 @@ function Course(props) {
 
 
     const onCourseComplete = async () => {
-        console.log('onCourseComplete')
         fetch(API_URL+`/course/done/${props.lesson.course._id}`, {
             method: 'POST',
             headers: await GET_TOKEN_HEADER()
@@ -190,11 +212,28 @@ function Course(props) {
             }
 
             if(res.type == 'ADDED_ALREADY') {
-                navigateToNextCourse()
+
+                if(checkIfProjectDone()) {
+                    return ;
+                }
+
+                navigateToNextCourse();
+
+
+            }
+
+            else if(checkIfProjectDone()) {
+                setCompletedCourse(props.lesson.course);
+                setOpenComplete(false)
+                setActComplete(true)
             }
 
             else {
+           
                 setCompletedCourse(props.lesson.course);
+                setOpenComplete(true)
+                setActComplete(false)
+            
             }
         })
     }
@@ -238,7 +277,8 @@ function Course(props) {
 
     //console.log('lol', props)
 
-
+    const lastLesson = checkIfProjectDone() ? true : false;
+    //console.log('last', lastLesson);
     return (
         <Layout containerClass={'bg-bg-main'} {...props} currentUser={authStatus.currentUser}>
             <div className="mx-auto">
@@ -277,9 +317,16 @@ function Course(props) {
                         courseId={cid} 
                         onLessonUpdate={onLessonUpdate} 
                         onCourseComplete={onCourseComplete} 
+                        lastLesson={lastLesson}
                     />
                 </div>
             </div>
+
+            { openComplete ? 
+                        <CongratsCourse nextCourse={navigateToNextCourse} course={completedCourse} isOpen={completedCourse} /> : null }
+                        { actComplete ? <CongratsProject onComplete={() => setActComplete(false)} isOpen={actComplete} /> : null }
+
+
         </Layout>
     );
 }

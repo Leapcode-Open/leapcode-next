@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { API_URL, GET_TOKEN_HEADER } from "../../config/constants";
 import Card from "../Card";
 import Step from "../Step";
@@ -6,6 +6,15 @@ import Step from "../Step";
 const LessonContainer = (props) => {
 
     const [nextStep, setNextStep] = useState((props.lesson.order+1) < props.lesson.course.lessons.length)
+    const [stepsComplete, setStepComplete] = useState(false);
+
+    useEffect(() => {
+        if(checkIfAllStepsDone())
+            setStepComplete(true)
+        else 
+            setStepComplete(false)
+    })
+    
     const { lesson } = props;
 
     const onStepDone = () => {};
@@ -35,9 +44,6 @@ const LessonContainer = (props) => {
             //props.onLessonUpdate(lesson);
 
         });
-
-
-
 
     }
 
@@ -104,16 +110,16 @@ const LessonContainer = (props) => {
     //console.log('loses', props, nextStep, props.lesson.order+1, props.lesson.course.lessons.length, (props.lesson.order+1) < props.lesson.course.lessons.length)
 
     const ifNextLesson = (props.lesson.order+1) < props.lesson.course.lessons.length;
-    console.log('exi', ifNextLesson)
+    console.log('exi', ifNextLesson, props.lastLesson)
     return (
         <Card  className="font-inter lessonDiv">
                 <div className="px-6 pt-3 pb-3 border-b border-gray-100">
                     <h1 className="text-lg font-bold">{lesson.name}</h1>
                 </div>
-                <div className="px-6 py-4 border-b border-gray-100">
+                <div className="">
                     <div 
                         dangerouslySetInnerHTML={{ __html: lesson.description }} 
-                        className='text-sm text-gray-800'>
+                        className='text-sm text-gray-800 px-6 py-4 border-b border-gray-100'>
                     </div>
                 </div>
                
@@ -139,13 +145,18 @@ const LessonContainer = (props) => {
     
            
                
-
+                { !props.lastLesson ? 
                 <div className="px-6 py-4">
                         { ifNextLesson ?   
-                        <button onClick={() => onNextLesson(nextStep) } className="py-2 px-6 rounded text-xs bg-blue-500 text-white font-semibold cursor-pointer hover:bg-blue-600">Next</button> : 
-                        <button onClick={() => onNextLesson()} className="py-2 px-6 rounded text-xs bg-blue-500 text-white font-semibold cursor-pointer hover:bg-blue-600">Next</button>
+                        <button disabled={!stepsComplete} onClick={() => onNextLesson(nextStep) } className="disabled:opacity-50 py-2 px-6 rounded text-xs bg-blue-500 text-white font-semibold cursor-pointer hover:bg-blue-600">Next</button> : 
+                        <button disabled={!stepsComplete} onClick={() => onNextLesson()} className="disabled:opacity-50 py-2 px-6 rounded text-xs bg-blue-500 text-white font-semibold cursor-pointer hover:bg-blue-600">Next</button>
                         }
+                </div> : 
+                <div className="px-6 py-4">
+                    <button disabled={!stepsComplete} onClick={() => onNextLesson()} className="disabled:opacity-50 py-2 px-6 rounded text-xs bg-blue-500 text-white font-semibold cursor-pointer hover:bg-blue-600">Finish</button>
                 </div>
+
+                }
 
         </Card>
     )

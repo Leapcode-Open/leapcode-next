@@ -8,6 +8,7 @@
 }
 
 
+
 .strokes-bg {
 
     background-image: url('/images/stokes-bg.svg');
@@ -307,3 +308,39 @@ section .check__item p {
     src: url("/fonts/jakata/PlusJakartaText-Light.ttf");
     font-weight: 200;
   } 
+
+
+  .bubble {
+    background-color: white;
+    background-size: cover;
+    border-radius: 50%;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1), 0 3px 10px rgba(0, 0, 0, 0.1);
+    height: 100px;
+    margin-right: 20px;
+    position: absolute;
+    transition: opacity ease-in-out 1s;
+    transition: border ease-in-out 0.1s;
+    width: 100px;
+    border:0px solid #fff;
+    cursor: pointer;
+  }
+
+
+  .bubble:hover {
+    /* border:4px solid #fff; */
+
+  }
+  
+  .bubbles {
+    height: 420px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .bubbles-wrapper {
+    /* background-color: salmon; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+  }
