@@ -96,10 +96,7 @@ const tweets = [
                     }
 
                   </div>
-                  {/* <div>
-                    <button  onClick={runSurvey} className="bg-white underline px-6 py-3 text-base rounded-lg font-gt font-regular mt-4 text-newblue-900 ml-1">Request access</button>
-
-                  </div> */}
+            
                 </div>
               </div>
 

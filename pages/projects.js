@@ -4,7 +4,7 @@ import { RepoBlock } from "../Components/RepoBlock";
 import SkeletonLoading from "../Components/SkeletonLoading";
 import { API_URL, GET_AUTH_USER_DETAILS, GET_SERVER_TOKEN_HEADER } from "../config/constants";
 import { AuthContext } from "../providers/AuthProvider";
-
+import { NextSeo } from 'next-seo';
 function projects(props) {
 
     const { projects, apierror } = props;
@@ -13,6 +13,9 @@ function projects(props) {
         return (<div>API Error</div>)
     return (
         <Layout {...props} currentUser={authStatus.currentUser}>
+            <NextSeo
+                title={`All open source repository - Leapcode`}
+            />
                 <div className="mx-auto max-w-4xl pt-10">
                     <h3 className="font-bold text-lg">All Projects</h3>
                    

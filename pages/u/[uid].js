@@ -5,7 +5,7 @@ import Layout from "../../Components/Layout";
 import ScorePointer from "../../Components/ScorePointer";
 import { API_URL, GET_AUTH_USER_DETAILS, GET_SERVER_TOKEN_HEADER } from "../../config/constants";
 import { AuthContext } from "../../providers/AuthProvider";
-
+import { NextSeo } from 'next-seo';
 
 
 const ProfileHeader = ({profile}) => (
@@ -38,6 +38,12 @@ function UID(props) {
 
     return (
         <Layout containerClass={'bg-bg-main'} {...props} currentUser={authStatus.currentUser}>
+              <NextSeo
+                title={`${profile.displayName} - Leapcode`}
+            />
+
+
+
             <div className="mx-auto">
                 <ProfileHeader profile={profile} />
             </div>

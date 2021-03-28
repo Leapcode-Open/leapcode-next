@@ -12,6 +12,7 @@ import LessonContainer from "../../../../Components/LessonContainer";
 import { sortableContainer, sortableElement, sortableHandle } from "react-sortable-hoc";
 import CongratsCourse from "../../../../Components/CongratsModal/CongratsCourse";
 import CongratsProject from "../../../../Components/CongratsModal/CongratsProject";
+import { NextSeo } from 'next-seo';
 
 const DragHandle = sortableHandle(() => <span>::</span>);
 
@@ -281,6 +282,11 @@ function Course(props) {
     //console.log('last', lastLesson);
     return (
         <Layout containerClass={'bg-bg-main'} {...props} currentUser={authStatus.currentUser}>
+             <NextSeo
+                title={`${props.lesson.name} - Contribute to ${props.project.organisation} / ${props.project.name}`}
+                description={`Contribute to ${props.project.organisation} / ${props.project.name} with Leapcode. ${props.lesson.course.name} ${props.lesson.name} `}
+            />
+
             <div className="mx-auto">
                 <ProjectPageHeader 
                     project={props.project} 

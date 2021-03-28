@@ -18,6 +18,7 @@
     "moment": "^2.29.1",
     "next": "10.0.6",
     "next-cookies": "^2.0.3",
+    "next-seo": "^4.23.0",
     "noisejs": "2.1.0",
     "nprogress": "^0.2.0",
     "postcss": "^8.2.5",
