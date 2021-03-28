@@ -8,6 +8,7 @@ import { RepoBlock } from '../Components/RepoBlock';
 import Card from '../Components/Card';
 import ChevronRight from '../Components/Icons/ChevronRight';
 import FlyingUsers from '../Components/FlyingUsers';
+import GithubIcon from '../Components/Icons/GithubIcon';
 const tweets = [
     {
       id:0,
@@ -49,7 +50,7 @@ const tweets = [
   const LandingPage = ({ contributors, projects, featuredUsers }) => {
 
     const authStatus = useContext(AuthContext);
-    console.log(featuredUsers);
+    // console.log(featuredUsers);
 
 
     useEffect(() => {
@@ -81,9 +82,9 @@ const tweets = [
                     {!authStatus.currentUser ? 
                     <a onClick={() => authStatus.login()} 
                         rel="nofollow" 
-                        className="hover:bg-black bg-gray-800 text-white font-gt inline-block font-semibold px-6 py-3 text-sm md:text-sm rounded-lg ">
-                      <div className="flex">
-                        <img className="w-5 h-5 mb-0 mr-3" src={'/lo.png'} /><span>Sign in with Github</span></div>
+                        className="hover:bg-black cursor-pointer bg-gray-800 text-white font-gt inline-block font-medium px-6 py-3 text-sm md:text-sm rounded-lg ">
+                      <div className="flex items-center tracking-wide">
+                        <span className="w-6 h-6 mb-0 mr-3"><GithubIcon /></span><span>Sign in with Github</span></div>
                     </a> : 
                     
                     <a href="/dashboard" rel="nofollow" className=" hover:bg-gray-800 hover:shadow-md duration-100 bg-black text-white font-gt inline-block font-semibold px-6 py-3 text-sm md:text-sm rounded-lg ">

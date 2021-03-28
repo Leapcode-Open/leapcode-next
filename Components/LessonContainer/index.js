@@ -119,7 +119,7 @@ const LessonContainer = (props) => {
                 <div className="">
                     <div 
                         dangerouslySetInnerHTML={{ __html: lesson.description }} 
-                        className='text-sm text-gray-800 px-6 py-4 border-b border-gray-100'>
+                        className='text-sm text-gray-800 px-6 py-4 border-b border-gray-100 leading-relaxed'>
                     </div>
                 </div>
                

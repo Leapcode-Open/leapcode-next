@@ -27,7 +27,7 @@ export const RepoBlock = (props) => {
                         </div> : null }    
                         <div className="text-sm" dangerouslySetInnerHTML={{ __html: props.description}}></div>
                             <div className="mt-4">
-                                <Link href={`/project/${props.slug}/issue`}>
+                                <Link href={`/project/${props.slug}/activity`}>
                                     <a className="text-blue-700 font-semibold text-sm hover:underline">Start Contributing →</a>
                                 </Link>
                             </div>

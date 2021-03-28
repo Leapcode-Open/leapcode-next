@@ -10,7 +10,7 @@ function projects(props) {
     const { projects, apierror } = props;
     const authStatus = useContext(AuthContext);
     if(apierror)
-        return (<div>asd</div>)
+        return (<div>API Error</div>)
     return (
         <Layout {...props} currentUser={authStatus.currentUser}>
                 <div className="mx-auto max-w-4xl pt-10">
